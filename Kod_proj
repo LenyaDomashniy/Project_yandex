@@ -1,0 +1,207 @@
+import sys
+import random
+from PyQt5.QtWidgets import QApplication, QWidget, QPushButton
+from PyQt5.QtWidgets import QLCDNumber, QLabel, QLineEdit
+
+
+class Example(QWidget):
+    def __init__(self):
+        super().__init__()
+        self.initUI()
+
+    def initUI(self):
+        self.setGeometry(300, 300, 300, 300)
+        self.setWindowTitle('Rhyming')
+
+        self.btn = QPushButton('Начать', self)
+        self.btn.resize(self.btn.sizeHint())
+        self.btn.move(20, 90)
+        self.btn.clicked.connect(self.main_menu)
+
+        self.second_button = QPushButton('Пополнить количество глаголов', self)
+        self.second_button.resize(self.btn.sizeHint())
+        self.second_button.move(-190, 0)
+        self.second_button.resize(180, 25)
+        self.second_button.clicked.connect(self.add_glagol)
+
+        self.three_button = QPushButton('Пополнить количество подлежащее', self)
+        self.three_button.resize(self.btn.sizeHint())
+        self.three_button.move(-210, 0)
+        self.three_button.resize(200, 25)
+        self.three_button.clicked.connect(self.add_podlezj)
+
+        self.pusk = QPushButton('добавить', self)
+        self.pusk.resize(self.btn.sizeHint())
+        self.pusk.move(-210, 0)
+        self.pusk.resize(80, 25)
+
+        self.hi_label = QLabel(self)
+        self.hi_label.resize(200, 10)
+        self.hi_label.setText("Вас приветствует программа")
+        self.hi_label.move(20, 20)
+
+        self.rifmi = QLabel(self)
+        self.rifmi.resize(100, 100)
+        self.rifmi.setText('')
+        self.rifmi.move(-220, 100)
+
+        self.name_label = QLabel(self)
+        self.name_label.resize(200, 15)
+        self.name_label.setText("Rhyming")
+        self.name_label.move(20, 40)
+
+        self.lest_start = QLabel(self)
+        self.lest_start.resize(200, 15)
+        self.lest_start.setText("Готовы начать?")
+        self.lest_start.move(20, 60)
+
+        self.wwod = QLineEdit(self)
+        self.wwod.move(-150, 0)
+
+        self.dopbutn = QPushButton(self)
+        self.dopbutn.move(-150, 20)
+
+        self.glagolchiki = ['полил', 'налил', 'прибил', 'разбил', 'набил', 'повторил', 'любил', 'убил',
+                            'отправлял', 'просиял', 'потерял', 'накидал', 'оживлял', 'смял', 'заставлял', 'составлял',
+                            'накидал', 'подобрал', 'разобрал', 'понимал', 'записал', 'послал']
+
+        self.podl = ['Петя', 'картошка', 'металл', 'лист' 'карта',
+                     'Антон', 'текст', 'Федя', 'Андрей', 'Экран', 'рация', 'бумага',
+                     'микрофон', 'яблоко', 'Миша']
+
+    #основное мнню
+
+    def main_menu(self):
+        self.wwod.setText('')
+        self.btn.move(-200, 20)
+        self.rifmi.move(-220, 100)
+        self.pusk.move(-210, 0)
+
+        self.hi_label.move(20, 20)
+        self.hi_label.setText('Чем могу вам помочь?')
+
+        self.wwod.move(-150, 0)
+
+        self.lest_start.move(-150, 0)
+        self.name_label.move(-150, 0)
+
+        self.dopbutn.move(20, 60)
+        self.dopbutn.setText('Подбор глагольной рифмы')
+        self.dopbutn.resize(150, 25)
+        self.dopbutn.clicked.connect(self.podbor)
+
+        self.second_button.move(20, 120)
+        self.three_button.move(20, 180)
+
+    #Меню добавления глагола
+
+    def add_glagol(self):
+        self.dopbutn.move(-220, 60)
+        self.pusk.move(20, 100)
+        self.pusk.setText('добавить')
+        self.pusk.clicked.connect(self.glagol)
+
+        self.wwod.move(20, 60)
+
+        self.hi_label.move(20, 20)
+        self.hi_label.setText('Введите глагол')
+
+        self.lest_start.move(-150, 0)
+        self.name_label.move(-150, 0)
+
+        self.btn.move(20, 240)
+        self.btn.setText('<-')
+        self.btn.resize(40, 25)
+        self.btn.clicked.connect(self.main_menu)
+
+        self.second_button.move(-200, 0)
+        self.three_button.move(-200, 0)
+
+    #Добавление глагола
+
+    def glagol(self):
+        if self.wwod.text() != '':
+            self.glagolchiki.append(self.wwod.text())
+
+    #добавление подлежащего
+
+    def podlezj(self):
+        if self.wwod.text() != '':
+            self.podl.append(self.wwod.text())
+
+    #Меню добавлению подлежащего
+
+    def add_podlezj(self):
+
+        self.dopbutn.move(-220, 60)
+        self.pusk.move(20, 100)
+        self.pusk.setText('добавить')
+        self.pusk.clicked.connect(self.podlezj)
+
+        self.wwod.move(20, 60)
+
+        self.hi_label.move(20, 20)
+        self.hi_label.setText('Введите Подлежащее')
+
+        self.lest_start.move(-150, 0)
+        self.name_label.move(-150, 0)
+
+        self.btn.move(20, 240)
+        self.btn.setText('<-')
+        self.btn.resize(40, 25)
+        self.btn.clicked.connect(self.main_menu)
+
+        self.second_button.move(-200, 0)
+        self.three_button.move(-200, 0)
+
+    #меню вывода рандомной рифмы
+
+    def podbor(self):
+        self.rifmi.setText('')
+
+        self.dopbutn.move(-220, 60)
+
+        self.rifmi.move(20, 100)
+
+        self.pusk.move(160, 58)
+        self.pusk.setText('подобрать')
+        self.pusk.clicked.connect(self.vivod)
+
+        self.wwod.move(20, 60)
+
+        self.hi_label.move(20, 20)
+        self.hi_label.setText('Введите глагол')
+
+        self.lest_start.move(-150, 0)
+        self.name_label.move(-150, 0)
+
+        self.btn.move(20, 240)
+        self.btn.setText('<-')
+        self.btn.resize(40, 25)
+        self.btn.clicked.connect(self.main_menu)
+
+        self.second_button.move(-200, 0)
+        self.three_button.move(-200, 0)
+
+    #Вывод рандомной рифмы
+
+    def vivod(self):
+        if self.wwod.text() != '':
+            self.vrem = []
+            self.tst = self.wwod.text()[-2:]
+
+            for ss in self.glagolchiki:
+                if self.tst == ss[-2:]:
+                    self.vrem.append(ss)
+            if len(self.vrem) > 0:
+                self.rifmi.setText(random.choice(self.vrem))
+            else:
+                self.rifmi.setText('error')
+
+
+
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    ex = Example()
+    ex.show()
+    sys.exit(app.exec())
