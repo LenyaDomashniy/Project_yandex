@@ -18,6 +18,12 @@ class Example(QWidget):
         self.btn.move(20, 90)
         self.btn.clicked.connect(self.main_menu)
 
+        self.stih = QPushButton('Вывод рандомного стиха', self)
+        self.stih.resize(self.btn.sizeHint())
+        self.stih.resize(180, 25)
+        self.stih.move(-190, 0)
+        self.stih.clicked.connect(self.stishok)
+
         self.second_button = QPushButton('Пополнить количество глаголов', self)
         self.second_button.resize(self.btn.sizeHint())
         self.second_button.move(-190, 0)
@@ -72,6 +78,8 @@ class Example(QWidget):
     #основное мнню
 
     def main_menu(self):
+        self.stih.move(20, 240)
+
         self.wwod.setText('')
         self.btn.move(-200, 20)
         self.rifmi.move(-220, 100)
@@ -96,6 +104,7 @@ class Example(QWidget):
     #Меню добавления глагола
 
     def add_glagol(self):
+        self.stih.move(-190, 0)
         self.dopbutn.move(-220, 60)
         self.pusk.move(20, 100)
         self.pusk.setText('добавить')
@@ -123,15 +132,20 @@ class Example(QWidget):
         if self.wwod.text() != '':
             self.glagolchiki.append(self.wwod.text())
 
+
     #добавление подлежащего
 
     def podlezj(self):
         if self.wwod.text() != '':
             self.podl.append(self.wwod.text())
+            
+
+
 
     #Меню добавлению подлежащего
 
     def add_podlezj(self):
+        self.stih.move(-190, 0)
 
         self.dopbutn.move(-220, 60)
         self.pusk.move(20, 100)
@@ -154,9 +168,12 @@ class Example(QWidget):
         self.second_button.move(-200, 0)
         self.three_button.move(-200, 0)
 
+
+
     #меню вывода рандомной рифмы
 
     def podbor(self):
+        self.stih.move(-190, 0)
         self.rifmi.setText('')
 
         self.dopbutn.move(-220, 60)
@@ -183,6 +200,41 @@ class Example(QWidget):
         self.second_button.move(-200, 0)
         self.three_button.move(-200, 0)
 
+
+
+    #Написание рандомного стиха
+
+    def stishok(self):
+        self.rifmi.setText('')
+
+        self.dopbutn.move(-220, 60)
+
+        self.stih.move(-190, 0)
+
+        self.rifmi.move(20, 100)
+
+        self.pusk.move(20, 20)
+        self.pusk.setText('вывести')
+        self.pusk.clicked.connect(self.programm)
+
+        self.wwod.move(-150, 0)
+
+        self.hi_label.move(20, 130)
+        self.hi_label.setText('-')
+
+        self.lest_start.move(-150, 0)
+        self.name_label.move(-150, 0)
+
+        self.btn.move(20, 240)
+        self.btn.setText('<-')
+        self.btn.resize(40, 25)
+        self.btn.clicked.connect(self.main_menu)
+
+        self.second_button.move(-200, 0)
+        self.three_button.move(-200, 0)
+
+
+
     #Вывод рандомной рифмы
 
     def vivod(self):
@@ -197,6 +249,50 @@ class Example(QWidget):
                 self.rifmi.setText(random.choice(self.vrem))
             else:
                 self.rifmi.setText('error')
+
+    def programm(self):
+
+        self.stishki = []
+
+        self.stishki.append(random.choice(self.podl))
+        self.stishki.append(random.choice(self.glagolchiki))
+        self.stishki.append(random.choice(self.podl))
+        self.stishki.append(random.choice(self.glagolchiki))
+        self.stishki.append('\n')
+        print(self.stishki)
+
+        self.stishki.append(random.choice(self.podl))
+        self.stishki.append(random.choice(self.glagolchiki))
+        self.stishki.append(random.choice(self.podl))
+        print(self.stishki)
+
+        while True:
+            self.bb = random.choice(self.glagolchiki)[-2:]
+            print(self.bb)
+            if bb[-2:] == (self.stishki[3])[-2:]:
+                self.stishki.append(self.bb)
+                break
+
+        self.stishki.append('\n')
+        print(self.stishki)
+
+        self.stishki.append(random.choice(self.podl))
+        self.stishki.append(random.choice(self.glagolchiki))
+        self.stishki.append(random.choice(self.podl))
+        self.stishki.append(random.choice(self.glagolchiki))
+        self.stishki.append('\n')
+
+        self.stishki.append(random.choice(self.podl))
+        self.stishki.append(random.choice(self.glagolchiki))
+        self.stishki.append(random.choice(self.podl))
+        while True:
+            self.bb = random.choice(self.glagolchiki)
+            if bb[-2:] == self.stishki[12][-2:]:
+                self.stishki.append(self.bb)
+                break
+        self.stishki.append('\n')
+
+        self.rifmi.setText(' '.join(self.stishki))
 
 
 
